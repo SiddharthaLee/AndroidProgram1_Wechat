@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">MyWechat</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="textView">这是不知所措界面</string>
+    <string name="textView1">这是一脸懵逼界面</string>
+    <string name="textView2">这是快乐风男界面</string>
+    <string name="textView4">这是安卓好难界面</string>
+</resources>
