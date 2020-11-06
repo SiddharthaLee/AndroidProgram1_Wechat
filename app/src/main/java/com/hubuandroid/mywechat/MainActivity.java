@@ -1,18 +1,30 @@
 package com.hubuandroid.mywechat;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+
+import com.hubuandroid.mywechat.adapers.ListViewAdapter;
+import com.hubuandroid.mywechat.beans.Datas;
+import com.hubuandroid.mywechat.beans.ItemBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -32,6 +44,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Fragment mTab04 = new SettingFragment();
 
     private FragmentManager fragmentManager;
+    private RecyclerView mList;
+    private List<ItemBean> mData;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +57,84 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         initEvent();
         initFragment();
         selectFragment(0);
+
+        //找到控件
+        mList = (RecyclerView) this.findViewById(R.id.recycler_view);
+        //准备数据
+        initData();
+    }
+
+    /**
+     * 这个方法用于模拟数据
+     */
+    private void initData() {
+        //创建模拟数据
+
+        //创建数据集合
+        mData = new ArrayList<>();
+
+        for (int i = 0; i < Datas.icons.length; i++){
+            //创建数据对象
+            ItemBean data = new ItemBean();
+            data.icon = Datas.icons[i];
+            data.title = "我是第"+i+"个条目";
+            //添加到集合中
+            mData.add(data);
+        }
+
+        //RecyclerView需要设置样式（布局管理器）
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+
+        mList.setLayoutManager(layoutManager);
+
+        //创建适配器
+        ListViewAdapter adapter = new ListViewAdapter(mData);
+        //设置到recycler view中去
+        mList.setAdapter(adapter);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu,menu);
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        int itemId = item.getItemId();
+        switch (itemId){
+            //ListView部分
+            case R.id.list_view_vertical_standard:
+                break;
+            case R.id.list_view_vertical_reverse:
+                break;
+            case R.id.list_view_horizontal_standard:
+                break;
+            case R.id.list_view_horizontal_reverse:
+                break;
+            //GridView部分
+            case R.id.grid_view_vertical_standard:
+                break;
+            case R.id.grid_view_vertical_reverse:
+                break;
+            case R.id.grid_view_horizontal_standard:
+                break;
+            case R.id.grid_view_horizontal_reverse:
+                break;
+            //瀑布流部分
+            case R.id.stagger_view_vertical_standard:
+                break;
+            case R.id.stagger_view_vertical_reverse:
+                break;
+            case R.id.stagger_view_horizontal_standard:
+                break;
+            case R.id.stagger_view_horizontal_reverse:
+                break;
+        }
+
+
+        return super.onOptionsItemSelected(item);
     }
 
     private void initFragment(){
